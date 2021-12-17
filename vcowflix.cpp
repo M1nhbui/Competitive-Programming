@@ -32,7 +32,7 @@ int c, n, a[MAXN], f[20][6000];
 
 int main()
 {
-    read();
+//     read();
     cin >> c >> n;
     FOR(i, 1, n)
     {
@@ -48,22 +48,27 @@ int main()
         f[i][a[i]] = 1;
         FOR(j, 0, c)
         {
-            if (f[i - 1][j] == 1 || f[i - 1][j - a[i]] == 1)
+            int x = j - a[i];
+            if (x < 0)
+            {
+                x = 5998;
+            }
+            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
             {
                 f[i][j] = 1;
                 res = max(res, j);
             }
         }
     }
-    FOR(i, 1, n)
-    {
-        FOR(j, 0, c)
-        {
+    // FOR(i, 1, n)
+    // {
+    //     FOR(j, 0, c)
+    //     {
 
-            if (f[i][j] == 1)
-                cout << i << " - " << j << ": " << f[i][j] << endl;
-        }
-    }
+    //         if (f[i][j] == 1)
+    //             cout << i << " - " << j << ": " << f[i][j] << endl;
+    //     }
+    // }
     cout << res;
     return 0;
 }
