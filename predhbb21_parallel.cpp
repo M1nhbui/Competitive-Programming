@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef pair<long long, long long> pll;
+typedef pair<int, int> pii;
+#define MAXN 900005
+#define MAX 1000
+#define ll long long
+#define ull unsigned long long
+#define ldb long double
+#define fi first
+#define se second
+#define mp make_pair
+#define pb push_back
+#define endl "\n"
+#define sp setprecision
+#define FOR(i, l, r) for (int i = l; i <= r; i++)
+#define FOD(i, r, l) for (int i = r; i >= l; i--)
+#define vecll vector<long long>
+#define vecldb vector<long double>
+#define vecpll vector<pair<long long, long long>>
+#define vecpldb vector<pair<long double, long double>>
+#define pathio "C:/Users/buile/OneDrive/Code/C++/InputOutput"
+#define lfi pathio "input.txt", "r", stdin
+#define lfo pathio "output.txt", "w", stdout
+
+ll n, a[MAX][MAX], sum[MAXN];
+ll nhap0[13];
+
+void code()
+{
+    cin >> n;
+    FOR(i, 1, n)
+    {
+        FOR(j, 1, 12)
+        {
+            cin >> a[i][j];
+        }
+    }
+    FOR(i, 1, 12)
+    {
+        cin >> nhap0[i];
+    }
+    sort(a + 1, a + 1 + n);
+    FOR(i, 1, n)
+    {
+        FOR(j, 1, 12)
+        {
+            cout << a[i][j] << " ";
+        }
+    }
+    // FOR(i, 1, n)
+    // {
+    //     FOR(j, 1, 12)
+    //     {
+    //         sum[i] += a[i][j];
+    //     }
+    // }
+    // FOR(i, 1, n)
+    // {
+    // }
+    return;
+}
+
+int main()
+{
+    freopen(lfi);
+    freopen(lfo);
+    cin.tie(0);
+    cout.tie(0);
+
+    code();
+
+    fclose(stdin);
+    fclose(stdout);
+    return 0;
+}

@@ -28,47 +28,25 @@ void read()
     cout.tie(NULL);
     return;
 }
-int c, n, a[MAXN], f[20][6000];
 
 int main()
 {
-    read();
-    cin >> c >> n;
-    FOR(i, 1, n)
+    // read();
+    string s;
+    getline(cin, s);
+    int n = s.size();
+    string a = "";
+    a.pb(s[n - 3]);
+    a.pb(s[n - 2]);
+    a.pb(s[n - 1]);
+    // cout << a;
+    if (a == ".py" || a == ".PY" || a == ".Py" || a == ".pY")
     {
-        cin >> a[i];
-        f[i][0] = 1;
+        cout << "yes";
     }
-    int res = 0;
-    sort(a + 1, a + 1 + n);
-    f[0][0] = 0;
-    f[1][a[1]] = 1;
-    FOR(i, 1, n)
+    else
     {
-        f[i][a[i]] = 1;
-        FOR(j, 0, c)
-        {
-            int x = j - a[i];
-            if (x < 0)
-            {
-                x = 5998;
-            }
-            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
-            {
-                f[i][j] = 1;
-                res = max(res, j);
-            }
-        }
+        cout << "no";
     }
-    // FOR(i, 1, n)
-    // {
-    //     FOR(j, 0, c)
-    //     {
-
-    //         if (f[i][j] == 1)
-    //             cout << i << " - " << j << ": " << f[i][j] << endl;
-    //     }
-    // }
-    cout << res;
     return 0;
 }

@@ -6,7 +6,6 @@ typedef pair<int, int> pii;
 
 #define MAXN 900005
 #define MAX 100
-#define ll long long
 
 #define ll long long
 #define ull unsigned long long
@@ -16,6 +15,8 @@ typedef pair<int, int> pii;
 #define vecll vector<long long>
 #define pb push_back
 #define pathio "C:/Users/buile/OneDrive/Code/C++/InputOutput/"
+#define fi first
+#define se second
 
 void read()
 {
@@ -28,47 +29,45 @@ void read()
     cout.tie(NULL);
     return;
 }
-int c, n, a[MAXN], f[20][6000];
+
+const int base = 31;
+const ll MOD = 1000000003;
+const ll maxn = 1000111;
+
+ll POW[maxn], h[maxn];
+
+ll getHash(int i, int j)
+{
+    return (h[j] - h[i - 1] * POW[j - i + 1] + MOD * MOD) % MOD;
+}
 
 int main()
 {
     read();
-    cin >> c >> n;
-    FOR(i, 1, n)
+    string T, P;
+    cin >> T >> P;
+    int lenT = T.size(), lenP = P.size();
+    T = " " + T;
+    P = " " + P;
+    POW[0] = 1;
+    for (int i = 1; i <= lenT; i++)
     {
-        cin >> a[i];
-        f[i][0] = 1;
+        POW[i] = (POW[i - 1] * base) % MOD;
     }
-    int res = 0;
-    sort(a + 1, a + 1 + n);
-    f[0][0] = 0;
-    f[1][a[1]] = 1;
-    FOR(i, 1, n)
+    for (int i = 1; i <= lenT; i++)
     {
-        f[i][a[i]] = 1;
-        FOR(j, 0, c)
+        h[i] = (h[i - 1] * base + (T[i] - 'a' + 1)) % MOD;
+    }
+    ll hashP = 0;
+    for (int i = 1; i <= lenP; i++)
+    {
+        hashP = (hashP * base + (P[i] - 'a' + 1)) % MOD;
+    }
+    for (int i = 1; i <= lenT - lenP + 1; i++)
+    {
+        if (hashP == getHash(i, i + lenP - 1))
         {
-            int x = j - a[i];
-            if (x < 0)
-            {
-                x = 5998;
-            }
-            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
-            {
-                f[i][j] = 1;
-                res = max(res, j);
-            }
+            cout << i << " ";
         }
     }
-    // FOR(i, 1, n)
-    // {
-    //     FOR(j, 0, c)
-    //     {
-
-    //         if (f[i][j] == 1)
-    //             cout << i << " - " << j << ": " << f[i][j] << endl;
-    //     }
-    // }
-    cout << res;
-    return 0;
 }

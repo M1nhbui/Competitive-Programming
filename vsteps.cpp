@@ -28,47 +28,46 @@ void read()
     cout.tie(NULL);
     return;
 }
-int c, n, a[MAXN], f[20][6000];
+
+ll n, k, a[MAXN], f[MAXN];
+vecll m(MAXN);
+
+ll mod = 14062008;
 
 int main()
 {
     read();
-    cin >> c >> n;
-    FOR(i, 1, n)
+    cin >> n >> k;
+    FOR(i, 1, k)
     {
         cin >> a[i];
-        f[i][0] = 1;
+        m[a[i]] = 1;
     }
-    int res = 0;
-    sort(a + 1, a + 1 + n);
-    f[0][0] = 0;
-    f[1][a[1]] = 1;
-    FOR(i, 1, n)
+    f[0] = 0;
+    f[1] = 1;
+    FOR(i, 2, n)
     {
-        f[i][a[i]] = 1;
-        FOR(j, 0, c)
+        f[i] = 0;
+        if (m[i] != 0)
         {
-            int x = j - a[i];
-            if (x < 0)
-            {
-                x = 5998;
-            }
-            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
-            {
-                f[i][j] = 1;
-                res = max(res, j);
-            }
+            // cout << i << ": " << f[i] << endl;
+            continue;
         }
+        if (m[i - 1] == 0)
+        {
+            f[i] = (f[i] + f[i - 1]) % mod;
+        }
+        if (m[i - 2] == 0)
+        {
+            f[i] = (f[i] + f[i - 2]) % mod;
+        }
+        if (f[i] == 0)
+        {
+            cout << 0;
+            return 0;
+        }
+        // cout << i << ": " << f[i] << endl;
     }
-    // FOR(i, 1, n)
-    // {
-    //     FOR(j, 0, c)
-    //     {
-
-    //         if (f[i][j] == 1)
-    //             cout << i << " - " << j << ": " << f[i][j] << endl;
-    //     }
-    // }
-    cout << res;
+    cout << f[n];
     return 0;
 }

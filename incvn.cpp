@@ -28,47 +28,41 @@ void read()
     cout.tie(NULL);
     return;
 }
-int c, n, a[MAXN], f[20][6000];
+
+ll a[MAXN], f[MAXN][55];
 
 int main()
 {
     read();
-    cin >> c >> n;
+    ll n, k;
+    cin >> n >> k;
     FOR(i, 1, n)
     {
         cin >> a[i];
-        f[i][0] = 1;
     }
-    int res = 0;
-    sort(a + 1, a + 1 + n);
-    f[0][0] = 0;
-    f[1][a[1]] = 1;
+    f[0][0] = 1;
     FOR(i, 1, n)
     {
-        f[i][a[i]] = 1;
-        FOR(j, 0, c)
+        FOR(t, 1, k)
         {
-            int x = j - a[i];
-            if (x < 0)
+            if (t <= i)
             {
-                x = 5998;
-            }
-            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
-            {
-                f[i][j] = 1;
-                res = max(res, j);
+                FOR(j, 0, i - 1)
+                {
+                    if (a[i] > a[j])
+                    {
+                        f[i][t] = (f[i][t] + f[j][t - 1]) % 5000000;
+                    }
+                }
+                // cout << "i: " << i << "| t: " << t << " | f: " << f[i][t] << endl;
             }
         }
     }
-    // FOR(i, 1, n)
-    // {
-    //     FOR(j, 0, c)
-    //     {
-
-    //         if (f[i][j] == 1)
-    //             cout << i << " - " << j << ": " << f[i][j] << endl;
-    //     }
-    // }
-    cout << res;
+    ll sum = 0;
+    FOR(i, 1, n)
+    {
+        sum = (sum + f[i][k]) % 5000000;
+    }
+    cout << sum;
     return 0;
 }

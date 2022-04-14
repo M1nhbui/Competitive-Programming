@@ -28,47 +28,23 @@ void read()
     cout.tie(NULL);
     return;
 }
-int c, n, a[MAXN], f[20][6000];
+
+vecll lt, a, b;
 
 int main()
 {
     read();
-    cin >> c >> n;
-    FOR(i, 1, n)
+    FOR(i, 0, 16)
     {
-        cin >> a[i];
-        f[i][0] = 1;
+    	lt.pb(pow(3, 16));
     }
-    int res = 0;
-    sort(a + 1, a + 1 + n);
-    f[0][0] = 0;
-    f[1][a[1]] = 1;
-    FOR(i, 1, n)
+    ll m;
+    cin >> m;
+    ll tmp = m;
+    ll index = 0;
+    while(tmp >= 0)
     {
-        f[i][a[i]] = 1;
-        FOR(j, 0, c)
-        {
-            int x = j - a[i];
-            if (x < 0)
-            {
-                x = 5998;
-            }
-            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
-            {
-                f[i][j] = 1;
-                res = max(res, j);
-            }
-        }
+    	tmp -
     }
-    // FOR(i, 1, n)
-    // {
-    //     FOR(j, 0, c)
-    //     {
-
-    //         if (f[i][j] == 1)
-    //             cout << i << " - " << j << ": " << f[i][j] << endl;
-    //     }
-    // }
-    cout << res;
     return 0;
 }

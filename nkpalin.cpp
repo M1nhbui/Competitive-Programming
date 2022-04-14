@@ -28,47 +28,48 @@ void read()
     cout.tie(NULL);
     return;
 }
-int c, n, a[MAXN], f[20][6000];
+
+int f[2005][2005];
 
 int main()
 {
     read();
-    cin >> c >> n;
+    string s;
+    cin >> s;
+    int n = s.size();
+    string p = s;
+    reverse(p.begin(), p.end());
+    s = " " + s;
+    p = " " + p;
+    string x = s, y = p;
     FOR(i, 1, n)
     {
-        cin >> a[i];
-        f[i][0] = 1;
-    }
-    int res = 0;
-    sort(a + 1, a + 1 + n);
-    f[0][0] = 0;
-    f[1][a[1]] = 1;
-    FOR(i, 1, n)
-    {
-        f[i][a[i]] = 1;
-        FOR(j, 0, c)
+        FOR(j, 1, n)
         {
-            int x = j - a[i];
-            if (x < 0)
+            if (p[i] == s[j])
             {
-                x = 5998;
+                f[i][j] = f[i - 1][j - 1] + 1;
             }
-            if (f[i - 1][j] == 1 || f[i - 1][x] == 1)
+            else
             {
-                f[i][j] = 1;
-                res = max(res, j);
+                f[i][j] = max(f[i - 1][j], f[i][j - 1]);
             }
         }
     }
-    // FOR(i, 1, n)
-    // {
-    //     FOR(j, 0, c)
-    //     {
-
-    //         if (f[i][j] == 1)
-    //             cout << i << " - " << j << ": " << f[i][j] << endl;
-    //     }
-    // }
-    cout << res;
+    int m = f[n][n];
+    string tmp = "";
+    FOR(i, 1, n)
+    {
+        int j = 1;
+        x = s;
+        y = p;
+        while (j <= n)
+        {
+            if (x[i] == y[j])
+            {
+                tmp.pb(x[i]);
+            }
+        }
+    }
     return 0;
 }
